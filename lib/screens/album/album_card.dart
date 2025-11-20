@@ -39,7 +39,7 @@ class AlbumCard extends StatelessWidget {
               album.title,
               style: const TextStyle(
                 fontSize: 18,
-                color: Color(0xFF60107B),
+                color: Color(0xFFFFFFFF),
                 fontWeight: FontWeight.w600,
               ),
               overflow: TextOverflow.ellipsis,
