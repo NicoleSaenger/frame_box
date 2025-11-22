@@ -81,7 +81,7 @@ class _PhotoScreenState extends State<PhotoScreen> {
   }
 
   Widget _buildHeader(BuildContext context) {
-    final userImageIndex = widget.user.id;
+    // final userImageIndex = widget.user.id;
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -104,7 +104,7 @@ class _PhotoScreenState extends State<PhotoScreen> {
               CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(
-                  'https://i.pravatar.cc/300?img=${userImageIndex.toString()}',
+                  'https://i.pravatar.cc/150?u=${widget.user.id.toString()}',
                 ),
               ),
               const SizedBox(width: 15),
@@ -181,7 +181,6 @@ class _PhotoScreenState extends State<PhotoScreen> {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: photos.length,
-            // Usa a contagem real!
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 4.0,
@@ -189,8 +188,7 @@ class _PhotoScreenState extends State<PhotoScreen> {
             ),
             itemBuilder: (context, index) {
               final photo = photos[index];
-              // 💡 Renderiza o widget final que carrega a imagem real
-              return PhotoGridItem(photo: photo);
+              return PhotoGridItem(photo: photo, user: widget.user);
             },
           ),
         );

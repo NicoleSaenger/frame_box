@@ -118,7 +118,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
               CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(
-                  'https://i.pravatar.cc/300?img=${userImageIndex.toString()}',
+                  'https://i.pravatar.cc/150?u=${user.id.toString()}',
                 ),
               ),
               const SizedBox(width: 20),

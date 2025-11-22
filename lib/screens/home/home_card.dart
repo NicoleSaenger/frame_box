@@ -43,7 +43,7 @@ class HomeCard extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(
-                    'https://i.pravatar.cc/300?img=${index.toString()}',
+                    'https://i.pravatar.cc/150?u=${user.id.toString()}',
                   ),
                   backgroundColor: Colors.transparent,
                 ),

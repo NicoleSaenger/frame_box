@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../models/comment_model.dart';
 import '../../models/photo_model.dart';
+import '../../models/user_model.dart';
 import 'comment_item.dart';
 import 'post_bloc.dart';
 
 class PostScreen extends StatefulWidget {
   final PhotoModel photo;
+  final UserModel user;
 
-  const PostScreen({super.key, required this.photo});
+  const PostScreen({super.key, required this.photo, required this.user});
 
   @override
   State<PostScreen> createState() => _PostScreenState();
@@ -82,7 +84,7 @@ class _PostScreenState extends State<PostScreen> {
   }
 
   Widget _buildPostHeader() {
-    final userSeed = widget.photo.albumId;
+    final userSeed = widget.user.id;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -91,12 +93,12 @@ class _PostScreenState extends State<PostScreen> {
           CircleAvatar(
             radius: 20,
             backgroundImage: NetworkImage(
-              'https://i.pravatar.cc/300?img=$userSeed',
+              'https://i.pravatar.cc/150?u=${userSeed.toString()}',
             ),
           ),
           const SizedBox(width: 10),
           Text(
-            'user_${userSeed.toString()}',
+            widget.user.username,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           const Spacer(),

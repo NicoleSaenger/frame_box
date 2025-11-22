@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 
 import '../../models/photo_model.dart';
+import '../../models/user_model.dart';
 import '../post/post.dart';
 
 class PhotoGridItem extends StatelessWidget {
   final PhotoModel photo;
+  final UserModel user;
 
-  const PhotoGridItem({super.key, required this.photo});
+  const PhotoGridItem({super.key, required this.photo, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navegação para a tela de post (foto ampliada)
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (_) => PostScreen(photo: photo)));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => PostScreen(photo: photo, user: user),
+          ),
+        );
       },
-      // 💡 CORPO DO CARD DE IMAGEM
+
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0), // Borda arredondada
+        borderRadius: BorderRadius.circular(1.0), // Borda arredondada
         child: Image.network(
-          // ⚠️ AQUI ESTÁ A CHAVE: Usa o URL da miniatura do seu db.json
           photo.thumbnailUrl,
           fit: BoxFit.cover,
-          // Placeholder enquanto a imagem carrega
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) return child;
             return Center(
