@@ -74,10 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 8),
                 child: TextField(
                   controller: _searchController,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Color(0xFF60107B)),
                   decoration: InputDecoration(
                     hintText: 'Search user by name...',
-                    hintStyle: const TextStyle(color: Colors.white),
+                    hintStyle: const TextStyle(color: Color(0xA1704E7A)),
                     prefixIcon: const Icon(
                       Icons.search,
                       color: Color(0xFF60107B),
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: const Color(0xFFbf9fca),
+                    fillColor: const Color(0xFFe8d9f0),
                   ),
                   onChanged: (text) {
                     setState(() {});

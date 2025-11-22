@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frame_box/screens/photo/photo_bloc.dart';
+import 'package:frame_box/screens/photo/photo_grid_item.dart';
 
 import '../../models/album_model.dart';
+import '../../models/photo_model.dart';
 import '../../models/user_model.dart';
 
 class PhotoScreen extends StatefulWidget {
@@ -14,9 +17,18 @@ class PhotoScreen extends StatefulWidget {
 }
 
 class _PhotoScreenState extends State<PhotoScreen> {
+  final PhotoBloc _bloc = PhotoBloc();
+
   @override
   void initState() {
     super.initState();
+    _bloc.get(widget.album.id);
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -133,26 +145,56 @@ class _PhotoScreenState extends State<PhotoScreen> {
   }
 
   Widget _buildPhotoGrid() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: 20,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 4.0,
-          mainAxisSpacing: 4.0,
-        ),
-        itemBuilder: (context, index) {
-          return Container(
-            color: const Color(0xFFe8d9f0),
-            child: const Center(
-              child: Icon(Icons.photo_outlined, color: Color(0xFFe8d9f0)),
+    return StreamBuilder<dynamic>(
+      stream: _bloc.output,
+      builder: (_, snapshot) {
+        //Carregando
+        if (!snapshot.hasData || snapshot.data == true) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 80.0),
+              child: CircularProgressIndicator(color: Color(0xFF60107B)),
             ),
           );
-        },
-      ),
+        }
+
+        //Erro ou Falha
+        if (snapshot.data == false || !(snapshot.data is List)) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text('Erro ao carregar fotos ou álbum vazio.'),
+            ),
+          );
+        }
+
+        //Sucesso: Carrega a lista real de fotos
+        final List<PhotoModel> photos = snapshot.data as List<PhotoModel>;
+
+        if (photos.isEmpty) {
+          return const Center(child: Text('Este álbum não possui fotos.'));
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: photos.length,
+            // Usa a contagem real!
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 4.0,
+            ),
+            itemBuilder: (context, index) {
+              final photo = photos[index];
+              // 💡 Renderiza o widget final que carrega a imagem real
+              return PhotoGridItem(photo: photo);
+            },
+          ),
+        );
+      },
     );
   }
 }

@@ -27,7 +27,9 @@ class PlaceholderService {
         debugPrint('Finished parsing ${users.length} users.');
         return users;
       } else {
-        debugPrint('Request failed. Status: ${response.statusCode}');
+        debugPrint(
+          'Request failed. Status: ${response.statusCode}, ${response.body}',
+        );
         return null;
       }
     } catch (e) {
