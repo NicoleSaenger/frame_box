@@ -14,7 +14,6 @@ class AlbumBloc {
   Future<void> get(int userId) async {
     input.add(true);
 
-    // LISTA DE ÁLBUNS MOCKADA
     List<AlbumModel> mockAlbums = [];
 
     final List<String> user1Titles = [
@@ -30,6 +29,19 @@ class AlbumBloc {
       "distinctio laborum qui",
     ];
 
+    final List<String> user2Titles = [
+      "quam nostrum impedit mollitia quod et dolor",
+      "consequatur autem doloribus natus consectetur",
+      "ab rerum non rerum consequatur ut ea unde",
+      "ducimus molestias eos animi atque nihil",
+      "ut pariatur rerum ipsum natus repellendus praesentium",
+      "voluptatem aut maxime inventore autem magnam atque repellat",
+      "aut minima voluptatem ut velit",
+      "nesciunt quia et doloremque",
+      "velit pariatur quaerat similique libero omnis quia",
+      "voluptas rerum iure ut enim",
+    ];
+
     if (userId == 1) {
       for (int i = 0; i < user1Titles.length; i++) {
         final albumId = 1 + i;
@@ -37,17 +49,11 @@ class AlbumBloc {
           AlbumModel(userId: userId, id: albumId, title: user1Titles[i]),
         );
       }
-    }
-    // Bloco para Usuário ID 2 (se precisar de dados para o ID 11 a 20)
-    else if (userId == 2) {
-      for (int i = 0; i < 10; i++) {
+    } else if (userId == 2) {
+      for (int i = 0; i < user2Titles.length; i++) {
         final albumId = 11 + i;
         mockAlbums.add(
-          AlbumModel(
-            userId: userId,
-            id: albumId,
-            title: 'Mock Album Title ${albumId} - User ${userId}',
-          ),
+          AlbumModel(userId: userId, id: albumId, title: user2Titles[i]),
         );
       }
     }
